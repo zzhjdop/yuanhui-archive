@@ -1,0 +1,1130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fbfbf9">
+<title>IT-S2-MB · 国际源汇管理局</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%20%20%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2256%22%20height%3D%2256%22%20fill%3D%22none%22%20stroke%3D%22%23a01c1c%22%20stroke-width%3D%224%22%2F%3E%0A%20%20%3Ctext%20x%3D%2232%22%20y%3D%2245%22%20font-family%3D%22Songti%20SC%2C%20SimSun%2C%20serif%22%20font-size%3D%2234%22%20fill%3D%22%23a01c1c%22%20text-anchor%3D%22middle%22%3E%E6%BA%90%3C%2Ftext%3E%0A%3C%2Fsvg%3E%0A" type="image/svg+xml">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#fbfbf9;
+  --ink:#121212;
+  --gray:#6b6b6b;
+  --mute:#9d9d97;
+  --line:#dcdcd6;
+  --line-2:#ebebe6;
+  --red:#a01c1c;
+  --rail-bg:rgba(251,251,249,.97);
+  --mono:"SF Mono",Menlo,Consolas,"Courier New",monospace;
+  --serif:"Songti SC","STSong","SimSun","Noto Serif CJK SC","Source Han Serif SC","Source Han Serif CN",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+}
+
+[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0d0d0d;
+  --ink:#e7e7e2;
+  --gray:#a2a29b;
+  --mute:#6f6f69;
+  --line:#2f2f2c;
+  --line-2:#1e1e1c;
+  --red:#c8453e;
+  --rail-bg:rgba(13,13,13,.97);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:15px;
+  line-height:1.95;
+  letter-spacing:.012em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  transition:background-color .25s ease,color .25s ease;
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  display:flex;
+  align-items:flex-end;
+  gap:16px;
+  padding:26px 34px 16px;
+  border-bottom:1px solid var(--ink);
+}
+.seal{
+  flex:0 0 auto;
+  width:36px;height:36px;
+  border:1.5px solid var(--red);
+  color:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1;
+  user-select:none;
+}
+.masthead h1{
+  margin:0;
+  font-family:var(--mono);
+  font-size:17px;
+  font-weight:600;
+  letter-spacing:.14em;
+}
+.masthead .sub{
+  margin:3px 0 0;
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:.3em;
+  color:var(--gray);
+}
+.masthead .doc{
+  order:3;
+  margin-left:auto;
+  font-family:var(--mono);
+  font-size:10.5px;
+  line-height:1.7;
+  letter-spacing:.05em;
+  color:var(--mute);
+  text-align:right;
+}
+.theme{
+  order:4;
+  flex:0 0 auto;
+  font-family:var(--sans);
+  font-size:11px;
+  letter-spacing:.18em;
+  line-height:1.2;
+  color:var(--gray);
+  background:transparent;
+  border:1px solid var(--line);
+  padding:6px 10px 5px;
+  border-radius:0;
+  cursor:pointer;
+  -webkit-appearance:none;
+  appearance:none;
+  transition:color .15s,border-color .15s,background-color .25s;
+}
+.theme:hover{color:var(--red);border-color:var(--red)}
+.theme:focus-visible{outline:1px solid var(--red);outline-offset:2px}
+
+/* ---------- layout ---------- */
+.shell{
+  display:grid;
+  grid-template-columns:214px minmax(0,1fr);
+}
+.rail{
+  position:sticky;
+  top:0;
+  align-self:start;
+  height:100vh;
+  padding:24px 0;
+  border-right:1px solid var(--line);
+  background:var(--rail-bg);
+}
+.rail .search{padding:0 22px 18px}
+.rail input{
+  width:100%;
+  background:transparent;
+  border:0;
+  border-bottom:1px solid var(--line);
+  padding:5px 1px;
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--ink);
+  outline:none;
+  border-radius:0;
+}
+.rail input::placeholder{color:var(--mute)}
+.rail input:focus{border-bottom-color:var(--ink)}
+.rail a{
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+  padding:7px 22px;
+  color:var(--gray);
+  text-decoration:none;
+  font-family:var(--sans);
+  font-size:12.5px;
+  letter-spacing:.08em;
+  border-left:2px solid transparent;
+  transition:color .15s;
+}
+.rail a .n{
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--mute);
+  min-width:24px;
+  letter-spacing:.04em;
+}
+.rail a:hover{color:var(--ink)}
+.rail a.active{color:var(--ink);border-left-color:var(--red)}
+.rail a.active .n{color:var(--red)}
+
+.content{
+  padding:42px 52px 140px;
+  max-width:860px;
+}
+
+/* ---------- sections ---------- */
+.sec{margin:0 0 74px;scroll-margin-top:24px}
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  flex-wrap:wrap;
+  padding-bottom:10px;
+  margin-bottom:30px;
+  border-bottom:1px solid var(--ink);
+}
+.sec-head .idx{
+  font-family:var(--mono);
+  font-size:11.5px;
+  letter-spacing:.1em;
+  color:var(--red);
+}
+.sec-head h2{
+  margin:0;
+  font-size:21px;
+  font-weight:600;
+  letter-spacing:.16em;
+}
+.sec-head .desc{
+  margin-left:auto;
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:.14em;
+  color:var(--mute);
+}
+
+/* ---------- dossier ---------- */
+.dossier{margin:0 0 8px}
+.dossier + .dossier{
+  margin-top:48px;
+  padding-top:44px;
+  border-top:1px solid var(--line-2);
+}
+.d-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.d-no{
+  font-family:var(--mono);
+  font-size:12.5px;
+  letter-spacing:.1em;
+}
+.d-head h3{
+  margin:0;
+  font-size:17px;
+  font-weight:600;
+  letter-spacing:.08em;
+}
+.stamp{
+  margin-left:auto;
+  font-family:var(--sans);
+  font-size:10px;
+  letter-spacing:.18em;
+  color:var(--gray);
+  border:1px solid var(--line);
+  padding:2px 8px;
+  white-space:nowrap;
+}
+.stamp.red{color:var(--red);border-color:var(--red)}
+.stamp.gray{color:var(--mute)}
+
+.d-meta{
+  display:grid;
+  grid-template-columns:62px minmax(0,1fr);
+  margin:0 0 22px;
+  font-size:13.5px;
+  line-height:1.8;
+  border-top:1px solid var(--line-2);
+}
+.d-meta > div{display:contents}
+.d-meta dt{
+  padding:8px 12px 8px 0;
+  border-bottom:1px solid var(--line-2);
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:.16em;
+  color:var(--mute);
+  white-space:nowrap;
+}
+.d-meta dd{
+  margin:0;
+  padding:8px 0;
+  border-bottom:1px solid var(--line-2);
+  word-break:break-word;
+}
+
+/* ---------- body ---------- */
+.d-body{font-size:15px;line-height:2.02}
+.d-body p{margin:0 0 14px}
+.d-body p:last-child{margin-bottom:0}
+.d-body ul{margin:0 0 14px;padding-left:1.15em}
+.d-body li{margin:0 0 7px}
+.d-body strong{font-weight:600}
+.r{color:var(--red)}
+.d-body h4{
+  margin:26px 0 10px;
+  font-family:var(--sans);
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.2em;
+  color:var(--gray);
+  border-bottom:1px solid var(--line-2);
+  padding-bottom:6px;
+}
+.d-body blockquote{
+  margin:0 0 16px;
+  padding:2px 0 2px 15px;
+  border-left:2px solid var(--line);
+  color:var(--gray);
+  font-size:14px;
+}
+.d-body blockquote strong{color:var(--ink)}
+.note{
+  margin-top:18px;
+  padding:10px 0 0;
+  border-top:1px dashed var(--line);
+  font-size:12.5px;
+  line-height:1.85;
+  color:var(--gray);
+  font-family:var(--sans);
+  letter-spacing:.03em;
+}
+.note::before{
+  content:"批注";
+  display:block;
+  font-family:var(--sans);
+  font-size:9.5px;
+  letter-spacing:.24em;
+  color:var(--mute);
+  margin-bottom:5px;
+}
+
+.formula{
+  font-family:var(--mono);
+  font-size:15px;
+  letter-spacing:.1em;
+  text-align:center;
+  padding:18px 0;
+  margin:24px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+/* ---------- tables ---------- */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13.5px;
+  margin:0 0 20px;
+}
+th,td{
+  text-align:left;
+  padding:7px 12px 7px 0;
+  border-bottom:1px solid var(--line-2);
+  vertical-align:top;
+}
+th{
+  font-family:var(--sans);
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:.16em;
+  color:var(--mute);
+  white-space:nowrap;
+}
+td.num{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+
+/* ---------- sealed grid ---------- */
+.sealed-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+  margin:0 0 20px;
+}
+.sealed{
+  border:1px solid var(--line);
+  padding:14px 12px 30px;
+  position:relative;
+  min-height:92px;
+}
+.sealed .no{
+  font-family:var(--mono);
+  font-size:11.5px;
+  letter-spacing:.08em;
+  color:var(--gray);
+}
+.sealed .mark{
+  position:absolute;
+  right:9px;
+  bottom:8px;
+  font-family:var(--sans);
+  font-size:9px;
+  letter-spacing:.22em;
+  color:var(--red);
+}
+.sealed.blank{background:
+  repeating-linear-gradient(180deg,transparent,transparent 21px,var(--line-2) 21px,var(--line-2) 22px);
+}
+
+/* ---------- misc ---------- */
+.lede{
+  font-size:16.5px;
+  line-height:2.1;
+  margin:0 0 20px;
+}
+.tag{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.14em;
+  color:var(--red);
+}
+hr.thin{border:0;border-top:1px solid var(--line-2);margin:26px 0}
+.footer{
+  margin-top:40px;
+  padding-top:14px;
+  border-top:1px solid var(--ink);
+  font-family:var(--sans);
+  font-size:10px;
+  letter-spacing:.2em;
+  color:var(--mute);
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.footer .r{margin-left:auto}
+#empty{
+  display:none;
+  padding:40px 0;
+  font-family:var(--sans);
+  font-size:12px;
+  letter-spacing:.18em;
+  color:var(--mute);
+}
+
+.totop{
+  display:block;
+  width:fit-content;
+  margin:8px 0 0;
+  font-family:var(--sans);
+  font-size:11px;
+  letter-spacing:.2em;
+  color:var(--mute);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  padding-bottom:2px;
+  transition:color .15s,border-color .15s;
+}
+.totop:hover{color:var(--red);border-bottom-color:var(--red)}
+
+/* ---------- mobile ---------- */
+@media (max-width:820px){
+  .shell{display:block}
+  .rail{
+    position:sticky;
+    top:0;
+    z-index:30;
+    height:auto;
+    border-right:0;
+    border-bottom:1px solid var(--line);
+    padding:9px 0 0;
+    background:var(--rail-bg);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+  }
+  .rail .search{padding:0 16px 7px}
+  .rail nav{
+    display:flex;
+    overflow-x:auto;
+    padding:0 6px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .rail nav::-webkit-scrollbar{display:none}
+  .rail a{
+    border-left:0;
+    border-bottom:2px solid transparent;
+    padding:8px 11px;
+    white-space:nowrap;
+  }
+  .rail a.active{border-left:0;border-bottom-color:var(--red)}
+  .masthead{
+    padding:18px 18px 12px;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .seal{width:30px;height:30px;font-size:14px}
+  .masthead h1{font-size:15px;letter-spacing:.1em}
+  .masthead .doc{
+    order:4;
+    margin-left:0;
+    width:100%;
+    text-align:left;
+    margin-top:2px;
+  }
+  .theme{
+    order:3;
+    margin-left:auto;
+  }
+  .content{padding:26px 18px 100px}
+  .sec{margin-bottom:56px;scroll-margin-top:96px}
+  .sec-head h2{font-size:18px;letter-spacing:.12em}
+  .sec-head .desc{margin-left:0;width:100%}
+  .d-meta{grid-template-columns:54px minmax(0,1fr);font-size:13px}
+  .d-body{font-size:14.5px;line-height:1.96}
+  .d-head h3{font-size:16px}
+  .stamp{margin-left:0;order:3;width:100%}
+  .sealed-grid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
+  table{font-size:12.5px}
+  th,td{padding-right:8px}
+}
+
+@media print{
+  .rail{display:none}
+  .shell{display:block}
+  .content{max-width:none;padding:0}
+  .dossier{break-inside:avoid}
+}
+
+</style>
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('yuanhui-theme');
+    if (t !== 'dark' && t !== 'light') {
+      t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="seal">源</div>
+  <div class="brand">
+    <h1>IT-S2-MB</h1>
+    <p class="sub">国际源汇管理局 · 异常档案室</p>
+  </div>
+  <div class="doc">
+    International Source–Sink Management Bureau<br>
+    归档 09 · 现行版
+  </div>
+  <button id="theme" class="theme" type="button" aria-label="切换黑夜模式">夜</button>
+</header>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="search">
+      <input id="q" type="search" placeholder="检索编号 / 科目 / 关键词" autocomplete="off" aria-label="检索档案">
+    </div>
+    <nav>
+      <a href="#foreword"><span class="n">00</span>卷首</a>
+      <a href="#catalog"><span class="n">01</span>总目录</a>
+      <a href="#sec-a"><span class="n">A</span>源汇</a>
+      <a href="#sec-b"><span class="n">B</span>常数</a>
+      <a href="#sec-c"><span class="n">C</span>结构</a>
+      <a href="#sec-d"><span class="n">D</span>无对端</a>
+      <a href="#method"><span class="n">02</span>辨识法</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+
+    <!-- ============ 卷首 ============ -->
+    <section class="sec" id="foreword">
+      <div class="sec-head">
+        <span class="idx">00</span>
+        <h2>卷首</h2>
+        <span class="desc">本室通用语</span>
+      </div>
+
+      <p class="lede">宇宙不要求"平"发生在原地，也不要求发生在同一天<br>它只要求总量守恒</p>
+
+      <div class="formula">∇·J + ∂ρ/∂t = S</div>
+
+      <div class="d-body">
+        <p>正常情况，<strong>S = 0</strong>，异常，就是 <strong>S ≠ 0</strong> 的地方</p>
+        <p><strong>源</strong>　东西从这里多出来<br><strong>汇</strong>　东西从这里消失<br><strong>通道</strong>　两者之间的通量路径</p>
+        <p>全局约束：∫S dV = 0，<strong>有源必有汇</strong>，这不是设定，这是散度定理</p>
+        <p>本局不负责消灭异常，本局负责<strong>在案卷上签字</strong>，而每一份签字，都要写清楚死多少人</p>
+        <blockquote>源必须消，汇那边的事，没人问过我们</blockquote>
+        <p class="note">本档案室不收录传闻、不收录未经三重复核的个案、不收录无法归入 A / B / C / D 四类的报告，最后一条曾导致十七份卷宗被销毁，销毁记录本身也被销毁</p>
+      </div>
+    </section>
+
+    <!-- ============ 总目录 ============ -->
+    <section class="sec" id="catalog">
+      <div class="sec-head">
+        <span class="idx">01</span>
+        <h2>总目录</h2>
+        <span class="desc">四类 · 编号规则</span>
+      </div>
+
+      <div class="d-body">
+        <table>
+          <thead><tr><th>类</th><th>名称</th><th>判定</th><th>处置动词</th></tr></thead>
+          <tbody>
+            <tr><td class="num">A</td><td>源汇类</td><td>某守恒量出现非零源项，且全局配平</td><td>消源</td></tr>
+            <tr><td class="num">B</td><td>常数类</td><td>基本常数或耦合在局部发生偏移</td><td>泵浦</td></tr>
+            <tr><td class="num">C</td><td>结构类</td><td>手性、晶格、同位素等结构自由度异常</td><td>稀释</td></tr>
+            <tr><td class="num">D</td><td>无对端</td><td>不守恒，且找不到配平项</td><td>封存</td></tr>
+          </tbody>
+        </table>
+        <p><strong>编号规则：</strong>A 类四位（案件多），B / C / D 两位（类型少），一看编号，就知道是一个案子，还是一种东西</p>
+        <p>改档条目保留原编号，<span class="r">划掉不涂黑</span>，划掉是为了记住划过</p>
+      </div>
+    </section>
+
+    <!-- ============ A 类 ============ -->
+    <section class="sec sec--entries" id="sec-a">
+      <div class="sec-head">
+        <span class="idx">A</span>
+        <h2>源汇</h2>
+        <span class="desc">守恒量失衡 · 可消源</span>
+      </div>
+
+      <article class="dossier" data-no="A-001" data-title="长寿村" data-keywords="熵 垃圾填埋场 回灌 不死">
+        <div class="d-head">
+          <span class="d-no">A-001</span>
+          <h3>长寿村</h3>
+          <span class="stamp">挂案 · 第 11 年</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>熵</dd></div>
+          <div><dt>源</dt><dd>██市第二垃圾填埋场（距汇 30 km），熵通量 +2.3×10⁴ J/(K·s)，已持续 11 年</dd></div>
+          <div><dt>汇</dt><dd>██村，3 km²，熵通量 −2.1×10⁴ J/(K·s)</dd></div>
+          <div><dt>通道</dt><dd>地下水系，流速 0.4 m/d，输运衰减 12%</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>村人不死，不腐烂、不生锈、伤口自动闭合、火很难点着，外面的人以为找到了天堂</p>
+          <p>真正的情况是：<strong>不死不等于不伤</strong>，组织按"逆过程"复原，但复原是机械的，不是生物的，断骨接反、瘢痕错位、器官慢慢挪位，老人活到两百岁，身体是一堆被反复缝回去的零件，<strong>而痛觉不解</strong></p>
+          <p>孩子生不下来，分娩是熵增过程</p>
+          <h4>消源方案</h4>
+          <p>爆破填埋场，回灌滞后 40 min，回灌半径 3.2 km，峰值持续 6 min，3 km² 内所有东西同时腐烂、锈蚀、崩塌，人也是</p>
+          <p><strong>预计伤亡：4.1 万</strong></p>
+          <p>结论：不批</p>
+          <p class="note">汇侧现有常住人口 217，已连续三年申请消源，均退回，本局只做一件事，把村子围起来，等</p>
+        </div>
+      </article>
+
+      <article class="dossier" data-no="A-014" data-title="静默楼" data-keywords="电荷 水塔 雷击 静电 军事授权">
+        <div class="d-head">
+          <span class="d-no">A-014</span>
+          <h3>静默楼</h3>
+          <span class="stamp">挂案 · 授权待批</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>电荷</dd></div>
+          <div><dt>源</dt><dd>██区废弃水塔顶端，累积 3×10⁴ C，仍在增长</dd></div>
+          <div><dt>汇</dt><dd>██路 12 层住宅，静电无法积累</dd></div>
+          <div><dt>通道</dt><dd>地下 10 kV 配电管沟</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>楼内静电无法积累，所有设备击穿，头发不竖，门把手摸不出火花</p>
+          <p>源端在攒，一次普通雷击是 30 C，这座塔攒了一千次雷击的量，而且没有停</p>
+          <h4>处置</h4>
+          <p>这是唯一一类军队真能解决问题的源汇：用导弹把水塔炸散，电荷在空气中缓慢泄放</p>
+          <p>代价：爆炸瞬间，电荷沿通道回灌，楼里 <span class="r">416 人</span>会被自己身上的静电杀死</p>
+          <p class="note">已申请三次军事授权，三次驳回，第四次还在等</p>
+        </div>
+      </article>
+
+      <article class="dossier" data-no="A-027" data-title="东漂小学" data-keywords="动量 漂移 小学 公路 刹车">
+        <div class="d-head">
+          <span class="d-no">A-027</span>
+          <h3>东漂小学</h3>
+          <span class="stamp">挂案 · 第 6 年</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>动量</dd></div>
+          <div><dt>源</dt><dd>██县第三小学，半径 200 m，所有物体持续向东漂移 0.3 m/s，永不停止</dd></div>
+          <div><dt>汇</dt><dd>██国道 K217–K217+800，车辆失去动量</dd></div>
+          <div><dt>通道</dt><dd>一条通学步道</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>汇侧上坡像下坡，刹车失灵，人走路会突然停住</p>
+          <p>源侧的孩子们学会了永远抓着什么东西，松手就撞墙，课桌全部焊在地上，体育课取消</p>
+          <p>消源：毁源端（小学），动量回灌公路，路上所有车瞬间获得向东的速度</p>
+          <p class="note">两边都是小孩</p>
+        </div>
+      </article>
+
+      <article class="dossier" data-no="A-083" data-title="真空极化亏空" data-keywords="伪B 轻子数 换流站 真空极化 跑动 μ子氢 511">
+        <div class="d-head">
+          <span class="d-no">A-083</span>
+          <h3>真空极化亏空</h3>
+          <span class="stamp red">初判 B-01 · 复核改回</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>轻子数 → 真空极化</dd></div>
+          <div><dt>汇</dt><dd>██市第四区，真空极化亏空</dd></div>
+          <div><dt>源</dt><dd>37 km 外 ±800 kV 特高压换流站，施温格阈值被压低</dd></div>
+          <div><dt>通道</dt><dd>±800 kV 直流线路本身</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>光学钟网络测出 α 比标准值<strong>高</strong> 1.2×10⁻⁵，全世界十几台钟口径一致，于是按 B 类挂上，画等值线，准备泵浦</p>
+          <h4>为什么是假的</h4>
+          <blockquote><strong>场结是把线抬高，这个案是把线掰弯</strong></blockquote>
+          <p>B-01 是标量场的位移，α 的偏移<strong>与探测能标无关</strong>，而第四区的数据一对就露馅：光学钟（低 q²）测出 +1.2×10⁻⁵，μ 子氢（q² 高两个量级）测出 +3.8×10⁻⁵</p>
+          <p>α 在跑动，而且跑动的<strong>斜率</strong>变了，这不是常数被挪了，是真空里虚粒子对的数量被抽走了，屏蔽变弱，远距离看到的电荷变大</p>
+          <h4>源的可见征</h4>
+          <p>换流站夜里有一层淡蓝辉光，γ 谱仪测到 511 keV 线，<strong>那是正电子湮灭，真空在往外出电子对</strong></p>
+          <p>为什么不消源：源是换流站，消源就是拉闸，拉闸就是一座城市没电，而汇打不到，汇是"没有"</p>
+          <p class="note">口诀：α 会跑动，常数不会<br>本局第一次意识到：通量路径可以是一条输电线，从此电力系统图纸，成了异常地图的底图</p>
+        </div>
+      </article>
+
+      <article class="dossier" data-no="A-101" data-title="分选谷" data-keywords="复合 梯度 珀尔帖 分选 零线 永久挂案 α">
+        <div class="d-head">
+          <span class="d-no">A-101</span>
+          <h3>分选谷</h3>
+          <span class="stamp red">永久挂案 · 强制索引 B-01</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>能量</dd></div>
+          <div><dt>源</dt><dd>██河谷谷口，α 偏高 2×10⁻⁴，分选放热</dd></div>
+          <div><dt>汇</dt><dd>谷底，α 偏低 2×10⁻⁴，分选吸热，恒定低 6 K</dd></div>
+          <div><dt>通道</dt><dd>α 的梯度本身</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>α 存在稳定梯度，4 km 线性过渡，同时，谷底比谷口<strong>恒定低 6 K</strong>，不随季节、日照、地热、河流量变化，十一年，没变过</p>
+          <h4>机制</h4>
+          <p>α 决定分子的稳定性，α 有梯度，就是化学势有梯度</p>
+          <blockquote><strong>所以整条河谷在分选自己</strong></blockquote>
+          <p>蛋白质、碳酸钙、某些黏土，在 α 高的一端更稳定；脂类、石英、另一些盐，在 α 低的一端更稳定，它们各自往自己稳定的方向迁移，慢慢分层的不是水，是化学本身</p>
+          <p>而分选有焓变，走向更稳定的位置，放热；离开，吸热，于是有了源，有了汇</p>
+          <h4>为什么消不掉</h4>
+          <p>要消源，得切断通道，通道是 α 的梯度，梯度是 B-01，B-01 不能移除，只能泵浦，<strong>泵浦会重排 α，热源会移动</strong></p>
+          <p>实测：三次泵浦作业后，谷口热区北移 1.7 km，谷底冷区同步移动，<strong>热源在跑，它跑向哪里，取决于你上一次治疗</strong></p>
+          <h4>零线</h4>
+          <p>谷腰有一条 α ≈ 0 的等值线，线上一米宽，α 恰好等于人类演化所适应的那个值，线上不分选，不冷，不热</p>
+          <p>于是河谷中间出现了一条 200 m 宽的居住带，四万人，房子全建在等值线上，他们没有门牌号，只有<strong>线号</strong>，"零线 3.7 公里处，第二户"</p>
+          <p>小孩上学沿着零线走，走偏三米，手会开始发麻</p>
+          <p>这是本系列唯一一个"人类学会了和异常共存"的地方，也是唯一一个人口在增长的红区</p>
+          <p class="note">第三次泵浦把热区推到了北边的██村，那村子，是本局自己建议安置在零线上的</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ B 类 ============ -->
+    <section class="sec sec--entries" id="sec-b">
+      <div class="sec-head">
+        <span class="idx">B</span>
+        <h2>常数</h2>
+        <span class="desc">耦合偏移 · 可泵浦</span>
+      </div>
+
+      <article class="dossier" data-no="B-01" data-title="场结" data-keywords="LOFS 孤子 哨音 屏蔽 变色龙 泵浦">
+        <div class="d-head">
+          <span class="d-no">B-01</span>
+          <h3>场结（LOFS）</h3>
+          <span class="stamp">B 类附册首条</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>精细结构常数 α</dd></div>
+          <div><dt>形态</dt><dd>定域振荡场结构，尺度 10 cm – 3 km，本征频率 10⁶–10¹⁰ Hz</dd></div>
+          <div><dt>屏蔽</dt><dd>变色龙型，空气≈不屏蔽，水/组织厘米级，岩石/金属毫米级</dd></div>
+          <div><dt>可观测</dt><dd>原子钟网、射电哨音、真空双折射</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>真空里一团能自我维持的标量场振荡结构，它在半径几厘米到几公里的范围内，把当地的 α 按住不动地挪动一点点</p>
+          <p>它有三个关键量：尺度、本征频率、<strong>直流偏置 ⟨φ⟩ ≠ 0</strong>，交流部分太快，化学只看得见时间平均；真正改变 α 的是那个不动的台阶，它像一块泡在真空里的、缓慢呼吸的偏压</p>
+          <h4>危害（δ = Δα/α）</h4>
+          <table>
+            <thead><tr><th>δ</th><th>世界的样子</th></tr></thead>
+            <tbody>
+              <tr><td class="num">10⁻⁶</td><td>人无感觉，钟差，GPS 每小时漂几十米</td></tr>
+              <tr><td class="num">10⁻⁵</td><td>嗅觉味觉先错，闻到不存在的焦味，耳鸣</td></tr>
+              <tr><td class="num">10⁻⁴</td><td>电子设备集体失稳，内燃机怠速抖动</td></tr>
+              <tr><td class="num">10⁻³</td><td>皮肤表面与体内气腔"化学烧伤"，凝血级联出错</td></tr>
+              <tr><td class="num">10⁻²</td><td>火会灭，火药不可靠，枪会炸膛，蛋白质系统性错误折叠</td></tr>
+              <tr><td class="num">10⁻¹</td><td>水不再是水，这不是死亡区域，这是另一个化学宇宙</td></tr>
+            </tbody>
+          </table>
+          <h4>军事</h4>
+          <p>动能与热武器无效，唯一手段是等频泵浦，而泵浦脉冲本身是播种源，净收益可能为负</p>
+          <p>核爆的电磁脉冲是宽带、高强度、E·B ≠ 0 的瞬变，通过参量共振播下新的结，一颗空爆能种出几十到几百个腔结，<strong>你手上最有力的武器，是敌人的繁殖器官</strong></p>
+          <p class="note">本局此前收到的所有关于它的报告，都被归进了 A 类，然后永远配不平，这就是附册诞生的原因</p>
+        </div>
+      </article>
+
+      <article class="dossier" data-no="B-04" data-title="热县" data-keywords="伪A 原档 A-041 消源 粮库 2140 跨能标对照 放热">
+        <div class="d-head">
+          <span class="d-no">B-04</span>
+          <h3>热县</h3>
+          <span class="stamp red">原档 A-041 · 已改档</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>精细结构常数 α</dd></div>
+          <div><dt>原判</dt><dd>A 类，能量源项 + 质量汇</dd></div>
+          <div><dt>实际</dt><dd>全域 α 偏高 3.4%</dd></div>
+          <div><dt>后果</dt><dd>错误消源，4 个村，2,140 人</dd></div>
+        </dl>
+        <div class="d-body">
+          <p><strong>这是本局唯一一次自己成为源项</strong></p>
+          <p>██县，自称"越烧越热"，燃料量正常，释放热量比标准值高 3.4%，精密质量谱显示：燃烧前后质量差对不上，缺口 3.4%</p>
+          <p>初判能量源项 + 质量汇，立案 A-041，按 A 类规程找源，全县唯一"多出来"的东西是县粮库，判定为源，执行消源</p>
+          <blockquote><strong>粮库爆破，连带周边 4 个村，死亡 2,140 人</strong></blockquote>
+          <p>复核：粮库不是源，全县根本没有源，该县全域 α 偏高 3.4%，化学键能跟着变，燃烧释放的能量变了，质量亏损变了，看上去质量不守恒，<strong>但总量守恒，是尺子变了，不是源项变了</strong></p>
+          <h4>为什么当年没人查 α</h4>
+          <p>因为 B-01 的已知偏移量全在 10⁻⁶ 量级，3.4% 比它大四个数量级，没人会往 B 类想</p>
+          <blockquote><strong>B 类没有上限</strong>，越大，越不像</blockquote>
+          <h4>B-04 条款（现行规程第一条）</h4>
+          <p>任何疑似源项，必须先做<strong>跨能标对照</strong>：化学 × 核 × 机械 × 引力，四类各测一遍，<strong>只平一类，是尺子，四类全平，是源项</strong></p>
+          <p>当年只烧了东西，烧的是化学，化学当然不平</p>
+          <p class="note">那 2,140 人不是死在异常手里，是死在诊断手里，原编号 <span class="r" style="text-decoration:line-through">A-041</span> 被划掉，但没涂黑</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ C 类 ============ -->
+    <section class="sec sec--entries" id="sec-c">
+      <div class="sec-head">
+        <span class="idx">C</span>
+        <h2>结构</h2>
+        <span class="desc">手性自由度 · 只能稀释</span>
+      </div>
+
+      <article class="dossier" data-no="C-01" data-title="异手类" data-keywords="手性 镜像 D氨基酸 消旋 白灰 禁火令 采样">
+        <div class="d-head">
+          <span class="d-no">C-01</span>
+          <h3>异手类（HCB）</h3>
+          <span class="stamp red">可立案 · 不可结案</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>分子手性（D/L 构型）</dd></div>
+          <div><dt>核心量</dt><dd>χ = (D − L)/(D + L)</dd></div>
+          <div><dt>形态</dt><dd>无定形：种群、催化过程、或残渣</dd></div>
+          <div><dt>可观测</dt><dd>无：常规检测全部阴性</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>1848 年，巴斯德在显微镜下用镊子把酒石酸盐的晶体一颗一颗挑成两堆，一堆让偏振光左转，一堆右转，他挑到一半发现：<strong>这两堆晶体是互为镜像的，像左手和右手</strong></p>
+          <p>从那天起，化学就知道了一件很怪的事，同一个东西可以有两个版本，区别只在于"手"，而生命，只用了一只</p>
+          <blockquote><strong>"手性"这个词里有"手"，不是比喻</strong>，一个完美的镜像，你看得懂每一个局部，但整体上永远握不上</blockquote>
+
+          <h4>判定标准</h4>
+          <p>一个东西属于异手类，当且仅当它的生存或危害策略，依赖"分子手性"这个自由度</p>
+          <p>这条标准的麻烦在于：它把三类活物和一类死物装进同一个格子里，而分类学家不得不这么做，因为<strong>灰在生态上就是活的</strong>，它扩散、沉积、致病，只是它不代谢</p>
+
+          <h4>四支</h4>
+          <table>
+            <thead><tr><th>支</th><th>策略</th><th>对人类的实际效果</th></tr></thead>
+            <tbody>
+              <tr><td>镜像支</td><td>全反，D-氨基酸、L-糖、镜像核酸</td><td>不可消化、不可免疫、不可检测</td></tr>
+              <tr><td>混手支</td><td>L-骨架 + D-装饰</td><td>让你"吃饱了还饿"</td></tr>
+              <tr><td>消旋支</td><td>不建造，只催化</td><td>把你变成混合物，它不需要进来</td></tr>
+              <tr><td>灰支</td><td>非生命残渣</td><td>不可清除的神经活性粉尘</td></tr>
+            </tbody>
+          </table>
+          <p><strong>镜像支最邪门的一点，是它尝起来是对的</strong>，L-葡萄糖是甜的，真的，它和 D-葡萄糖在舌头上结合同一个受体，但它不能被代谢，进去，转一圈，出来</p>
+          <blockquote>一座城的糖变成了 L-糖，所有东西都还是甜的，所有人都在饿死，<br>而所有食品检测都是测"总糖"，总糖正常，<strong>报告上写合格</strong></blockquote>
+
+          <h4>χ 表</h4>
+          <table>
+            <thead><tr><th>χ</th><th>世界的样子</th></tr></thead>
+            <tbody>
+              <tr><td class="num">1%</td><td>常规检测阴性，只有手性色谱看得见</td></tr>
+              <tr><td class="num">3–5%</td><td>食物没味道，蛋白酶效率掉 15%，莫名地累</td></tr>
+              <tr><td class="num">10%</td><td>消化率断崖，吃得越多越瘦</td></tr>
+              <tr><td class="num">20%</td><td>免疫交叉启动，你成了自己的过敏原</td></tr>
+              <tr><td class="num">35%</td><td>D-丝氨酸占住 NMDA 受体，癫痫、幻觉</td></tr>
+              <tr><td class="num">50%</td><td>外消旋，没有任何酶能作用于它，化学上已经死了</td></tr>
+              <tr><td class="num">灰</td><td>χ 失去意义，它只是卡在你肺里</td></tr>
+            </tbody>
+          </table>
+
+          <h4>为什么它既不是 A 也不是 B</h4>
+          <ul>
+            <li>没有源项，所以<strong>找不到另一端</strong></li>
+            <li>没有常数偏移，所以<strong>测不出 δ</strong></li>
+            <li>它只是一个<strong>符号</strong>，一个分子可以是左的，也可以是右的，这件事本身不违反任何守恒律，也不改变任何常数，宇宙完全允许</li>
+          </ul>
+          <p>所以 C 类既不能消源，也不能泵浦，它能做的只有三件事：<strong>稀释、降解、替换</strong>，而这三件事，全都是工程，不是物理</p>
+
+          <h4>三条鉴别钥匙</h4>
+          <p><strong>钥匙一 · 稀释法</strong>，场不会被稀释，种群会，稀释 1000 倍再测：信号按浓度线性下降 → C 类；不降 → B 类</p>
+          <p><strong>钥匙二 · 手性色谱</strong>，唯一能"看见"它的方法，慢、贵、破坏样品，且必须在实验室</p>
+          <p><strong>钥匙三 · 镜像酶探针</strong>，用 D-氨基酸氧化酶去"咬"样品，但咬不动不等于干净，DAAO 只咬游离的，咬不动 D-肽段</p>
+          <blockquote>探针说干净，是它咬不动，不是它没有</blockquote>
+
+          <h4>目录的第四个漏洞：C 不能画等值线</h4>
+          <p>A 类有 S(x)，能画等值线，B 类有 δ(x)，能画等值线，<strong>C 类有 χ，但 χ 不是场</strong></p>
+          <p>χ 是一个比例，你不能说"这栋楼的 χ 是 3%"，你只能说"我采的这 200 克里，3% 是反的"，所以 C 类的地图不是一个面，是<strong>一堆点</strong>，而点，是可以用"没采到"来骗人的</p>
+          <blockquote><strong>C 类地区不存在"已清除"，只存在"最近一次采样没找到"</strong></blockquote>
+
+          <h4>禁火令</h4>
+          <p>火是这一类的繁殖方式，加热会让氨基酸消旋，天冬氨酸消旋测年法就是靠这个算化石年代</p>
+          <p>你烧掉一个异手巢，你不是消灭它，你是把它从"活的、可处理的、可稀释的"，转成"死的、外消旋的、不可降解的"</p>
+          <table>
+            <thead><tr><th>有效</th><th>原理</th></tr></thead>
+            <tbody>
+              <tr><td>冷冻 + 机械剥离</td><td>低温不消旋，慢，但灰是干净的</td></tr>
+              <tr><td>DAAO 喷洒</td><td>真酶，专吃 D-氨基酸</td></tr>
+              <tr><td>D-环丝氨酸类</td><td>真药，专打 D-Ala 通路</td></tr>
+              <tr><td>含氯消毒剂</td><td>氧化不区分手性</td></tr>
+            </tbody>
+          </table>
+          <p><strong>无效：</strong>火、爆、烧（增殖）；抗生素（对镜像支结构性无效）；核武器（超大面积的完美消旋反应器）</p>
+          <p>于是战术变成了：<strong>围，冻，洗，等</strong></p>
+
+          <h4>灰</h4>
+          <p>灰是 C 类唯一有实体的东西，不被蛋白酶切断，不被雨水冲走，且有生物活性，D-丝氨酸是真实的神经递质</p>
+          <p>于是被烧过的街区是：干净、无人、白色、有一股旧纸板混着甜味的味道，下雨冲不掉，三年后有人搬回去，五年后开始抽搐，诊断写"老年性癫痫"</p>
+          <p>他们查了血、查了脑脊液、查了重金属、查了农药，全都正常，<span class="r">因为没人查手性</span></p>
+
+          <p class="note">A 类是源项坏了，B 类是尺子坏了，C 类是"你在哪儿"这个问题本身坏了</p>
+        </div>
+      </article>
+
+      <article class="dossier" data-no="C-01-a" data-title="甜的地方" data-keywords="L葡萄糖 制糖厂 营养不良 总糖 合格">
+        <div class="d-head">
+          <span class="d-no">C-01-a</span>
+          <h3>甜的地方</h3>
+          <span class="stamp">结案 · 耗时 14 个月</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>科目</dt><dd>手性</dd></div>
+          <div><dt>初判</dt><dd>A 类？无源，B 类？α 正常</dd></div>
+          <div><dt>真身</dt><dd>镜像支污染制糖厂三条生产线</dd></div>
+          <div><dt>后果</dt><dd>全县三年营养赤字，儿童发育迟缓 1,100 余例</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>██县全域食品，总糖含量正常，热量检测正常，微生物检测正常，居民日均摄入 2,900 kcal，全员体重下降，三年内出现 400 余例"不明原因营养不良"</p>
+          <p>手性色谱复核：当地食糖中 L-葡萄糖占 <span class="r">61%</span></p>
+          <p>结晶罐、管道、离心机内壁形成稳定生物膜，把 D-糖异构化成 L-糖，L-糖甜、无热量、不升血糖，<strong>所有常规检测判合格</strong></p>
+          <p>处置：生产线报废，管道更换，全厂 DAAO 清洗，耗时 14 个月</p>
+          <p class="note">我们不是没检测，我们检测了糖，我们只是从来没问过，糖是哪只手</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ D 类 ============ -->
+    <section class="sec sec--entries" id="sec-d">
+      <div class="sec-head">
+        <span class="idx">D</span>
+        <h2>无对端</h2>
+        <span class="desc">不立案 · 不改档 · 不写备注</span>
+      </div>
+
+      <div class="d-body">
+        <p>没有源，也没有汇，凭空多出来一笔，理论上不可能</p>
+        <p>至今七例，全部封存</p>
+      </div>
+
+      <div class="sealed-grid">
+        <div class="sealed blank"><span class="no">D-001</span><span class="mark">封存</span></div>
+        <div class="sealed blank"><span class="no">D-002</span><span class="mark">封存</span></div>
+        <div class="sealed blank"><span class="no">D-003</span><span class="mark">封存</span></div>
+        <div class="sealed"><span class="no">D-004</span><span class="mark">封存</span></div>
+        <div class="sealed blank"><span class="no">D-005</span><span class="mark">封存</span></div>
+        <div class="sealed blank"><span class="no">D-006</span><span class="mark">封存</span></div>
+        <div class="sealed blank"><span class="no">D-007</span><span class="mark">封存</span></div>
+      </div>
+
+      <article class="dossier" data-no="D-004" data-title="第七区四分钟" data-keywords="无对端 四分钟 质量 封存">
+        <div class="d-head">
+          <span class="d-no">D-004</span>
+          <h3>第七区四分钟</h3>
+          <span class="stamp red">封存 · 不立案</span>
+        </div>
+        <dl class="d-meta">
+          <div><dt>借端</dt><dd>无</dd></div>
+          <div><dt>贷端</dt><dd>无</dd></div>
+          <div><dt>通道</dt><dd>无</dd></div>
+        </dl>
+        <div class="d-body">
+          <p>██市第七区，每天凌晨 3:00–3:04，全市有 4 分钟<strong>不存在</strong>，不是失忆，不是停电，是这 4 分钟里，第七区的一切都不在册内，人还在，但<strong>他们的质量查不到</strong></p>
+          <p>总量守恒，可它没从任何地方来，也不去任何地方</p>
+          <p class="note">一旦承认"没有对端的源项"存在，整个理论基础就没了，不是不想查，是不敢查</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ 辨识法 ============ -->
+    <section class="sec" id="method">
+      <div class="sec-head">
+        <span class="idx">02</span>
+        <h2>辨识法</h2>
+        <span class="desc">内部培训 · 三行口诀</span>
+      </div>
+
+      <div class="d-body">
+        <blockquote>
+          <strong>源项不平，找另一头</strong>（A）<br>
+          <strong>尺不准，看会不会跑</strong>（B）<br>
+          <strong>手不对，别问在哪儿，问采了几个点</strong>（C）
+        </blockquote>
+        <p>第三行下面有人用铅笔加了一句，没署名：</p>
+        <blockquote><strong>而人只有一双手，采不了几个点</strong></blockquote>
+
+        <hr class="thin">
+
+        <h4>操作顺序</h4>
+        <table>
+          <thead><tr><th>步骤</th><th>动作</th><th>目的</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>稀释 1000 倍复测</td><td>分开 B（场）与 C（种群）</td></tr>
+            <tr><td class="num">2</td><td>跨能标对照：化学 × 核 × 机械 × 引力</td><td>分开 A（源项）与 B（常数）</td></tr>
+            <tr><td class="num">3</td><td>多能标测 α（光学 / μ 子）</td><td>看 α 是平移还是掰弯</td></tr>
+            <tr><td class="num">4</td><td>手性色谱</td><td>确认 C 的真实 χ</td></tr>
+          </tbody>
+        </table>
+        <p>四步走完，才能签字，四步没走完就签的，都进了 B-04 那份卷宗</p>
+
+        <p class="note">本页为内部培训页，外部人员如阅读至此，请立即停止，并交回本册</p>
+      </div>
+
+      <div class="footer">
+        <span>IT-S2-MB · 国际源汇管理局</span>
+        <span>International Source–Sink Management Bureau</span>
+        <span class="r">内部资料 · 禁止外传</span>
+      </div>
+    </section>
+
+    <div id="empty">没有匹配的档案，请检查编号，或换一个科目</div>
+
+    <a class="totop" href="#foreword">↑ 回到卷首</a>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  /* ---- day / night ---- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('theme');
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  var KEY = 'yuanhui-theme';
+  var PAPER = { light: '#fbfbf9', dark: '#0d0d0d' };
+
+  function applyTheme(mode) {
+    root.setAttribute('data-theme', mode);
+    if (themeMeta) themeMeta.setAttribute('content', PAPER[mode] || PAPER.light);
+    if (themeBtn) {
+      themeBtn.textContent = mode === 'dark' ? '昼' : '夜';
+      themeBtn.setAttribute('aria-label', mode === 'dark' ? '切换到白天模式' : '切换到黑夜模式');
+      themeBtn.setAttribute('aria-pressed', mode === 'dark' ? 'true' : 'false');
+    }
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved !== 'dark' && saved !== 'light') {
+    saved = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ? 'dark' : 'light';
+  }
+  applyTheme(saved);
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+    });
+  }
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.rail nav a'));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+    .filter(Boolean);
+
+  /* ---- active nav by scroll position ---- */
+  if ('IntersectionObserver' in window && sections.length) {
+    var visible = new Set();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) visible.add(e.target.id);
+        else visible.delete(e.target.id);
+      });
+      var current = null;
+      // choose the top-most visible section in document order
+      for (var i = 0; i < sections.length; i++) {
+        if (visible.has(sections[i].id)) { current = sections[i].id; break; }
+      }
+      if (!current) return;
+      links.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
+  /* ---- search ---- */
+  var input = document.getElementById('q');
+  var dossiers = Array.prototype.slice.call(document.querySelectorAll('.dossier'));
+  var entrySections = Array.prototype.slice.call(document.querySelectorAll('.sec--entries'));
+  var staticSections = Array.prototype.slice.call(
+    document.querySelectorAll('#foreword, #catalog, #method')
+  );
+  var empty = document.getElementById('empty');
+
+  function normalize(s) {
+    return (s || '').toLowerCase().replace(/\s+/g, '');
+  }
+
+  function apply() {
+    var q = normalize(input.value);
+    var hits = 0;
+    dossiers.forEach(function (d) {
+      var hay = normalize(
+        (d.dataset.no || '') + ' ' +
+        (d.dataset.title || '') + ' ' +
+        (d.dataset.keywords || '') + ' ' +
+        d.textContent
+      );
+      var show = !q || hay.indexOf(q) !== -1;
+      d.style.display = show ? '' : 'none';
+      if (show) hits++;
+    });
+    entrySections.forEach(function (sec) {
+      var any = Array.prototype.some.call(
+        sec.querySelectorAll('.dossier'),
+        function (d) { return d.style.display !== 'none'; }
+      );
+      sec.style.display = any ? '' : 'none';
+    });
+    staticSections.forEach(function (sec) {
+      sec.style.display = q ? 'none' : '';
+    });
+    empty.style.display = (q && hits === 0) ? 'block' : 'none';
+  }
+
+  if (input) {
+    input.addEventListener('input', apply);
+    input.addEventListener('search', apply);
+  }
+
+  /* ---- clear search on Escape ---- */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && input) {
+      input.value = '';
+      apply();
+      input.blur();
+    }
+  });
+
+  /* ---- smooth anchor offset for sticky mobile nav ---- */
+  links.forEach(function (a) {
+    a.addEventListener('click', function () {
+      a.classList.add('active');
+      links.forEach(function (b) { if (b !== a) b.classList.remove('active'); });
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
